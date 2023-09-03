@@ -60,7 +60,7 @@ async def generic_api_exception_handler(request: Request, ex: ApiException):
     )
 
 
-def main(req: func.HttpRequest, context: func.Context) -> func.HttpResponse:
+async def main(req: func.HttpRequest, context: func.Context) -> func.HttpResponse:
     """
     Azure function entry point.
     All web requests are handled by FastAPI.
@@ -71,4 +71,4 @@ def main(req: func.HttpRequest, context: func.Context) -> func.HttpResponse:
     Returns:
         func.HttpResponse: HTTP Response
     """
-    return func.AsgiMiddleware(app).handle(req, context)
+    return await func.AsgiMiddleware(app).handle_async(req, context)
